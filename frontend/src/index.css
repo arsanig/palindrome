@@ -1,0 +1,11 @@
+/* tailwind defaults */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* font import from google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+html, body, #root {
+    height: 100%;
+  }
