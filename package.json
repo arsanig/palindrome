@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "concurrently": "^7.0.0",
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "dev": "./node_modules/nodemon/bin/nodemon.js ./backend/src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
