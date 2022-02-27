@@ -29,7 +29,7 @@ const addMessage = async (req, res) => {
         const savedMessage = await message.save()
         res.json(savedMessage)
     } catch (err) {
-        res.json({ error: err })
+        res.json({ error: err.message })
     }
 }
 
