@@ -32,9 +32,9 @@ const addMessage = async (req, res) => {
             palindrome: isPalindrome,
         })
         const savedMessage = await message.save()
-        res.json(savedMessage)
+        res.status(201).json(savedMessage)
     } catch (err) {
-        res.json({ error: err.message })
+        res.status(409).json({ error: err.message })
     }
 }
 

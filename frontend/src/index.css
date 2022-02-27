@@ -7,7 +7,7 @@
 html,
 body,
 #root {
-    @apply h-full w-full flex flex-col bg-qgray;
+    @apply h-full w-full flex flex-col bg-qgray font-fredoka;
 }
 
 #form {
@@ -27,7 +27,7 @@ body,
 }
 
 #table {
-    @apply table-auto self-center w-3/4 mt-20 bg-white rounded;
+    @apply table-fixed self-center w-3/4 mt-20 bg-white rounded-2xl;
 }
 
 th,
@@ -35,12 +35,20 @@ td {
     @apply p-3 border border-qgray;
 }
 
-#table-first-column {
+#table-heading-first {
     @apply w-1/6;
 }
 
-#table-last-column {
+#table-heading-last {
     @apply w-1/6;
+}
+
+#table-data-first {
+    @apply text-center;
+}
+
+#table-data-last {
+    @apply text-center;
 }
 
 #delete-button {

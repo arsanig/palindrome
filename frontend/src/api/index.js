@@ -18,10 +18,10 @@ const addMessage = async (messageData) => {
         console.log(err)
     }
 }
+
 const updateMessage = async (messageId, messageData) => {
     try {
-        const { data } = await axios.patch(`${url}/${messageId}`, messageData)
-        return data
+        await axios.patch(`${url}/${messageId}`, messageData)
     } catch (err) {
         console.log(err)
     }
