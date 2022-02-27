@@ -8,7 +8,7 @@ module.exports = {
             },
         },
         fontFamily: {
-            fredoka: ['Fredoka', 'sans-serif'],
+            poppins: ['Poppins', 'sans-serif'],
         },
     },
     plugins: [],

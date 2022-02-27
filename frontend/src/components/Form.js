@@ -25,7 +25,7 @@ export default function Form({ setFetchedData }) {
             <label id="form-label">Enter a message</label>
             <textarea
                 id="form-text"
-                maxLength="280"
+                maxLength="80"
                 value={textarea}
                 onChange={(e) => handleChange(e)}
                 required
