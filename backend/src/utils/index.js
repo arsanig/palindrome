@@ -16,4 +16,4 @@ const checkPalindrome = (message) => {
     }
 }
 
-module.exports =  { checkPalindrome }
+module.exports = { checkPalindrome }
