@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
 //base route when visiting <url>/api
 router.get('/', (req, res) => {

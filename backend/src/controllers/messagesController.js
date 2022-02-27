@@ -1,15 +1,16 @@
 const Message = require('../models/Message')
+const Utils = require('../utils')
 
-exports.getMessages = async (req, res) => {
+const getMessages = async (req, res) => {
     try {
         const messages = await Message.find()
-        res.json(messages);
+        res.json(messages)
     } catch (err) {
         res.json({ error: err.message })
     }
 }
 
-exports.getMessage = async (req, res) => {
+const getMessage = async (req, res) => {
     try {
         const message = await Message.findById(req.params.messageId)
         res.json(message)
@@ -18,24 +19,26 @@ exports.getMessage = async (req, res) => {
     }
 }
 
-exports.addMessage = async (req, res) => {
-    const message = new Message({
-        message: req.body.message,
-    })
-
+const addMessage = async (req, res) => {
     try {
+        const isPalindrome = await Utils.checkPalindrome(req.body.message)
+        const message = new Message({
+            message: req.body.message,
+            palindrome: isPalindrome,
+        })
         const savedMessage = await message.save()
-        res.status(201).json(savedMessage)
+        res.json(savedMessage)
     } catch (err) {
-        res.status(403).json({ error: err.message })
+        res.json({ error: err })
     }
 }
 
-exports.updateMessage = async (req, res) => {
+const updateMessage = async (req, res) => {
     try {
+        const isPalindrome = await Utils.checkPalindrome(req.body.message)
         const updatedMessage = await Message.updateOne(
             { _id: req.params.messageId },
-            { $set: { message: req.body.message } }
+            { $set: { message: req.body.message, palindrome: isPalindrome } }
         )
         res.json(updatedMessage)
     } catch (err) {
@@ -43,11 +46,21 @@ exports.updateMessage = async (req, res) => {
     }
 }
 
-exports.removeMessage = async (req, res) => {
+const removeMessage = async (req, res) => {
     try {
-        const removedMessage = await Message.remove({ _id: req.params.messageId })
+        const removedMessage = await Message.remove({
+            _id: req.params.messageId,
+        })
         res.json(removedMessage)
     } catch (err) {
         res.json({ error: err })
     }
+}
+
+module.exports = {
+    getMessages,
+    getMessage,
+    addMessage,
+    updateMessage,
+    removeMessage,
 }
