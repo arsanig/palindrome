@@ -1,27 +1,30 @@
 import { useState } from 'react'
-import * as api from '../api'
+import { addMessage } from '../api'
 
 export default function Form() {
-    const [textarea, setTextArea] = useState('')
+    const [messageData, setMessageData] = useState({
+        message: '',
+        palindrome: '',
+    })
 
-    const handleTextChange = (e) => {
-        setTextArea(e.target.value)
-    }
     const handleSubmit = (e) => {
         e.preventDefault()
-        api.addMessage(textarea)
-        setTextArea('')
+        addMessage(messageData)
     }
 
     return (
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form id="form" onSubmit={(e) => handleSubmit(e)}>
+            <label id="form-label">Enter a message</label>
             <textarea
+                id="form-text"
                 maxLength="280"
-                value={textarea}
-                onChange={(e) => handleTextChange(e)}
+                value={messageData.message}
+                onChange={(e) =>
+                    setMessageData({ ...messageData, message: e.target.value })
+                }
                 required
-            ></textarea>
-            <input type="submit" value="Check if Palindrome" />
+            />
+            <input id="form-input" type="submit" value="Check if palindrome" />
         </form>
     )
 }

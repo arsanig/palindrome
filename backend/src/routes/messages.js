@@ -3,9 +3,9 @@ const router = express.Router()
 const MessagesController = require('../controllers/messagesController')
 
 router.get('/', MessagesController.getMessages)
-router.get('/:messageId', MessagesController.getMessage)
+router.get('/:id', MessagesController.getMessage)
 router.post('/', MessagesController.addMessage)
-router.patch('/:messageId', MessagesController.updateMessage)
-router.delete('/:messageId', MessagesController.removeMessage)
+router.patch('/:id', MessagesController.updateMessage)
+router.delete('/:id', MessagesController.removeMessage)
 
 module.exports = router

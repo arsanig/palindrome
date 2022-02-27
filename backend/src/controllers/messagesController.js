@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const Message = require('../models/Message')
 const Utils = require('../utils')
 
@@ -11,8 +12,12 @@ const getMessages = async (req, res) => {
 }
 
 const getMessage = async (req, res) => {
+    const { id: _id } = req.params
+    if (!mongoose.Types.ObjectId.isValid(_id))
+        return res.status(404).send('Not a valid ID')
+
     try {
-        const message = await Message.findById(req.params.messageId)
+        const message = await Message.findById(_id)
         res.json(message)
     } catch (err) {
         res.json({ error: err.message })
@@ -34,10 +39,14 @@ const addMessage = async (req, res) => {
 }
 
 const updateMessage = async (req, res) => {
+    const { id: _id } = req.params
+    if (!mongoose.Types.ObjectId.isValid(_id))
+        return res.status(404).send('Not a valid ID')
+
     try {
         const isPalindrome = await Utils.checkPalindrome(req.body.message)
         const updatedMessage = await Message.updateOne(
-            { _id: req.params.messageId },
+            { _id: _id },
             { $set: { message: req.body.message, palindrome: isPalindrome } }
         )
         res.json(updatedMessage)
@@ -47,9 +56,13 @@ const updateMessage = async (req, res) => {
 }
 
 const removeMessage = async (req, res) => {
+    const { id: _id } = req.params
+    if (!mongoose.Types.ObjectId.isValid(_id))
+        return res.status(404).send('Not a valid ID')
+
     try {
-        const removedMessage = await Message.remove({
-            _id: req.params.messageId,
+        const removedMessage = await Message.findByIdAndDelete({
+            _id: _id,
         })
         res.json(removedMessage)
     } catch (err) {

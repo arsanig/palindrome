@@ -1,11 +1,11 @@
-// import Messages from './components/Messages/Messages'
 import Form from './components/Form'
+import Messages from './components/Messages/Messages'
 
 export default function App() {
     return (
-        <div>
+        <>
             <Form />
-            {/* <Messages /> */}
-        </div>
+            <Messages />
+        </>
     )
 }

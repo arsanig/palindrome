@@ -5,9 +5,10 @@
         "prettier": "2.5.1"
     },
     "scripts": {
-        "dev": "concurrently \"cd ./frontend && npm start\" \"./node_modules/nodemon/bin/nodemon.js ./backend/src/app.js\"",
-        "backend": "./node_modules/nodemon/bin/nodemon.js ./backend/src/app.js",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "pretty": "npx prettier --write ."
+        "pretty": "npx prettier --write .",
+        "dev": "concurrently \"cd ./frontend && npm start\" \"node ./backend/src/app.js\"",
+        "frontend": "cd ./frontend && npm start",
+        "backend": "./node_modules/nodemon/bin/nodemon.js ./backend/src/app.js"
     }
 }
