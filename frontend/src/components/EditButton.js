@@ -1,10 +1,5 @@
-
 export default function EditButton({ messageId, message }) {
-
-
-    const handleClick = () => {
-
-    }
+    const handleClick = () => {}
 
     return (
         <button id="edit-button" onClick={() => handleClick()}>

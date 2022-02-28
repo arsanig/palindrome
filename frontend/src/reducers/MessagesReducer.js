@@ -1,4 +1,4 @@
-export default function MessagesReducer(state, action){
+export default function MessagesReducer(state, action) {
     switch (action.type) {
         case 'FETCH':
             return {
@@ -23,13 +23,13 @@ export default function MessagesReducer(state, action){
             return {
                 ...state,
                 messages: state.messages.filter(
-                  (message) => message._id !== action.payload
+                    (message) => message._id !== action.payload
                 ),
-              }
+            }
         case 'EDIT':
             return {
                 ...state,
-                textarea: action.payload.message
+                textarea: action.payload.message,
             }
         default:
             return state

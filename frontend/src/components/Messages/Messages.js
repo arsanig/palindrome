@@ -1,15 +1,11 @@
 import Message from './Message/Message'
-import {
-    useMessages
-} from '../../contexts/MessagesContext'
+import { useMessages } from '../../contexts/MessagesContext'
 import { getMessages } from '../../actions/MessagesActions'
 import { useEffect } from 'react'
 
 export default function Messages() {
     const [messagesState, messagesDispatch] = useMessages()
-    const {
-        messages,
-    } = messagesState
+    const { messages } = messagesState
 
     useEffect(() => {
         getMessages(messagesDispatch)
