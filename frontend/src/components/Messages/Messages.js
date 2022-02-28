@@ -1,15 +1,19 @@
 import Message from './Message/Message'
-import { useState, useEffect } from 'react'
-import { getMessages } from '../../api'
+import {
+    useMessages
+} from '../../contexts/MessagesContext'
+import { getMessages } from '../../actions/MessagesActions'
+import { useEffect } from 'react'
 
-export default function Messages({ fetchedData, setFetchedData }) {
-    const [messagesData, setMessagesData] = useState([])
+export default function Messages() {
+    const [messagesState, messagesDispatch] = useMessages()
+    const {
+        messages,
+    } = messagesState
 
     useEffect(() => {
-        getMessages().then((data) => setMessagesData(data))
-        setFetchedData(true)
-    }, [fetchedData, setFetchedData])
-
+        getMessages(messagesDispatch)
+    }, [messagesDispatch])
     return (
         <>
             <table id="table">
@@ -21,12 +25,8 @@ export default function Messages({ fetchedData, setFetchedData }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {messagesData.map((message, index) => (
-                        <Message
-                            key={index}
-                            message={message}
-                            setFetchedData={setFetchedData}
-                        />
+                    {messages.map((message, index) => (
+                        <Message key={index} message={message} />
                     ))}
                 </tbody>
             </table>

@@ -2,37 +2,9 @@ import axios from 'axios'
 
 const url = 'http://localhost:5000/api/messages'
 
-const getMessages = async () => {
-    try {
-        const { data } = await axios.get(url)
-        return data
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-const addMessage = async (messageData) => {
-    try {
-        await axios.post(url, messageData)
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-const updateMessage = async (messageId, messageData) => {
-    try {
-        await axios.patch(`${url}/${messageId}`, messageData)
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-const deleteMessage = async (messageId) => {
-    try {
-        await axios.delete(`${url}/${messageId}`)
-    } catch (err) {
-        console.log(err)
-    }
-}
+const getMessages = () => axios.get(url)
+const addMessage = (messageObj) => axios.post(url, messageObj)
+const updateMessage = (messageId, messageObj) => axios.patch(`${url}/${messageId}`, messageObj)
+const deleteMessage = (messageId) => axios.delete(`${url}/${messageId}`)
 
 export { getMessages, addMessage, updateMessage, deleteMessage }

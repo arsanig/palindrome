@@ -1,36 +1,43 @@
-import { useState } from 'react'
-import { addMessage } from '../api'
+import { useState } from "react"
+import { useMessages } from "../contexts/MessagesContext"
+import { addMessage } from "../actions/MessagesActions"
 
-export default function Form({ setFetchedData }) {
-    const [textarea, setTextarea] = useState('')
-    const [messageData, setMessageData] = useState({
-        message: '',
-        palindrome: '',
-    })
+export default function Form() {
+    const [textarea, setTextArea] = useState('')
+    const [messagesState, messagesDispatch] = useMessages()
+    const {
+        edit,
+    } = messagesState
+
 
     const handleChange = (e) => {
-        setTextarea(e.target.value)
-        setMessageData({ message: e.target.value })
+        setTextArea(e.target.value)
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        addMessage(messageData)
-        setTextarea('')
-        setFetchedData(false)
+        if (edit) {
+
+        } else {
+            const newMessage = ({
+                _id: '',
+                message: textarea,
+                palindrome: ''
+            })
+            addMessage(messagesDispatch, newMessage)
+        }
     }
 
-    return (
-        <form id="form" onSubmit={(e) => handleSubmit(e)}>
-            <label id="form-label">Enter a message</label>
-            <textarea
-                id="form-text"
-                maxLength="80"
-                value={textarea}
-                onChange={(e) => handleChange(e)}
-                required
-            />
-            <input id="form-input" type="submit" value="Check if palindrome" />
-        </form>
-    )
-}
+        return (
+            <form id="form" onSubmit={(e) => handleSubmit(e)}>
+                <label id="form-label">Enter a message</label>
+                <textarea
+                    id="form-text"
+                    maxLength="80"
+                    value={textarea}
+                    onChange={(e) => handleChange(e)}
+                    required
+                />
+                <input id="form-input" type="submit" value="Check if palindrome" />
+            </form>
+        )
+    }

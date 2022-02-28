@@ -27,7 +27,7 @@ body,
 }
 
 #table {
-    @apply table-fixed self-center w-3/4 mt-20 bg-white rounded-2xl;
+    @apply table-fixed self-center w-3/4 my-20 bg-white rounded-2xl;
 }
 
 th,
@@ -51,6 +51,10 @@ td {
     @apply text-center;
 }
 
+#edit-button {
+    @apply mr-1 px-4 py-2 rounded-full bg-slate-700 text-white;
+}
+
 #delete-button {
-    @apply m-2 p-2 rounded-full bg-rose-500 text-white;
+    @apply p-2 rounded-full bg-rose-500 text-white;
 }

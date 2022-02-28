@@ -1,9 +1,7 @@
-import { deleteMessage } from '../api'
 
-export default function DeleteButton({ messageId, setFetchedData }) {
+export default function DeleteButton({ messageId }) {
+
     const handleClick = () => {
-        deleteMessage(messageId)
-        setFetchedData(false)
     }
 
     return (
