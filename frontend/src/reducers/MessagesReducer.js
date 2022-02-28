@@ -30,6 +30,20 @@ export default function MessagesReducer(state, action) {
             return {
                 ...state,
                 textarea: action.payload.message,
+                selectedForEdit: action.payload,
+                edit: true,
+            }
+        case 'INPUT_CHANGE':
+            return {
+                ...state,
+                [action.payload.field]: action.payload.text,
+            }
+        case 'CLEAR':
+            return {
+                ...state,
+                textarea: '',
+                selectedForEdit: {},
+                edit: false,
             }
         default:
             return state

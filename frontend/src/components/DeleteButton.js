@@ -6,7 +6,7 @@ export default function DeleteButton({ messageId }) {
     return (
         <button
             id="delete-button"
-            onClick={(e) => deleteMessage(messagesDispatch, messageId)}
+            onClick={() => deleteMessage(messagesDispatch, messageId)}
         >
             Delete
         </button>

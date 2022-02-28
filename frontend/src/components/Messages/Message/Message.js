@@ -7,7 +7,7 @@ export default function Message({ message }) {
             <td id="table-data-first">{message.palindrome ? 'Yes' : 'Nope'}</td>
             <td>{message.message}</td>
             <td id="table-data-last">
-                <EditButton messageId={message._id} message={message.message} />
+                <EditButton messageId={message._id} />
                 <DeleteButton messageId={message._id} />
             </td>
         </tr>

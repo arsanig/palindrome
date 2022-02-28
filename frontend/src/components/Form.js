@@ -1,18 +1,27 @@
-import { useState } from 'react'
 import { useMessages } from '../contexts/MessagesContext'
-import { addMessage } from '../actions/MessagesActions'
+import {
+    addMessage,
+    updateMessage,
+    inputChange,
+    clear,
+} from '../actions/MessagesActions'
 
 export default function Form() {
-    const [textarea, setTextArea] = useState('')
     const [messagesState, messagesDispatch] = useMessages()
-    const { edit } = messagesState
+    const { textarea, edit, selectedForEdit } = messagesState
 
     const handleChange = (e) => {
-        setTextArea(e.target.value)
+        inputChange(messagesDispatch, e.target.name, e.target.value)
     }
 
     const handleSubmit = (e) => {
         if (edit) {
+            const newMessage = {
+                _id: selectedForEdit._id,
+                message: textarea,
+            }
+            console.log(newMessage)
+            updateMessage(messagesDispatch, newMessage)
         } else {
             const newMessage = {
                 _id: '',
@@ -21,6 +30,7 @@ export default function Form() {
             }
             addMessage(messagesDispatch, newMessage)
         }
+        clear(messagesDispatch)
     }
 
     return (
@@ -28,6 +38,7 @@ export default function Form() {
             <label id="form-label">Enter a message</label>
             <textarea
                 id="form-text"
+                name="textarea"
                 maxLength="80"
                 value={textarea}
                 onChange={(e) => handleChange(e)}

@@ -11,9 +11,9 @@ const useMessages = () => {
 const MessagesProvider = ({ children }) => {
     const initialState = {
         messages: [],
-        error: null,
+        textarea: '',
         edit: false,
-        loading: false,
+        selectedForEdit: {},
     }
     const [state, dispatch] = useReducer(MessagesReducer, initialState)
 

@@ -26,10 +26,9 @@ const addMessage = async (dispatch, messageObj) => {
 
 const updateMessage = async (dispatch, messageObj) => {
     try {
-        const { data } = await api.updateMessage(
-            messageObj._id,
-            messageObj.message
-        )
+        const { data } = await api.updateMessage(messageObj._id, {
+            message: messageObj.message,
+        })
         dispatch({
             type: 'UPDATE',
             payload: {
@@ -37,6 +36,7 @@ const updateMessage = async (dispatch, messageObj) => {
                 message: data.message,
             },
         })
+        console.log(messageObj.message)
     } catch (err) {
         console.log(err)
     }
@@ -49,15 +49,32 @@ const deleteMessage = async (dispatch, messageId) => {
             type: 'DELETE',
             payload: data._id,
         })
-    } catch (err) {}
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 const clear = (dispatch) => dispatch({ type: 'CLEAR' })
 
-const editing = (dispatch, message) =>
+const edit = (dispatch, message) =>
     dispatch({
         type: 'EDIT',
         payload: message,
     })
 
-export { getMessages, addMessage, updateMessage, deleteMessage, editing, clear }
+const inputChange = (dispatch, field, text) => {
+    dispatch({
+        type: 'INPUT_CHANGE',
+        payload: { field, text },
+    })
+}
+
+export {
+    getMessages,
+    addMessage,
+    updateMessage,
+    deleteMessage,
+    edit,
+    clear,
+    inputChange,
+}
