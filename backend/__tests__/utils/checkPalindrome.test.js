@@ -7,12 +7,6 @@ describe('Testing checkPalindrome function', () => {
         expect(checkPalindrome(empty)).toBe(true)
     })
 
-    it('returns true with a complex palindrome that has special characters', () => {
-        const complex =
-            'Are we not pure? “No, sir!” Panama’s moody Noriega brags. “It is garbage!” Irony dooms a man—a prisoner up to new era.'
-        expect(checkPalindrome(complex)).toBe(true)
-    })
-
     it('returns true with a palindromic number only', () => {
         const numberPalindrome = '99399'
         expect(checkPalindrome(numberPalindrome)).toBe(true)

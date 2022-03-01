@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const Message = require('../models/Message')
+const Message = require('../db/models/Message')
 const Utils = require('../utils')
 
 const getMessages = async (req, res) => {
@@ -36,9 +36,9 @@ const addMessage = async (req, res) => {
             message.palindrome = isPalindrome
         }
         const savedMessage = await message.save()
-        res.status(201).json(savedMessage)
+        res.json(savedMessage)
     } catch (err) {
-        res.status(409).json({ error: err.message })
+        res.json({ error: err.message })
     }
 }
 

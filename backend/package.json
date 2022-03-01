@@ -4,11 +4,9 @@
     "description": "RESTful API for an application that checks for palindromes",
     "main": "app.js",
     "scripts": {
-        "start": "node ./src/app.js",
-        "test": "jest"
+        "start": "node ./src/server.js",
+        "test": "jest --runInBand --detectOpenHandles"
     },
-    "author": "",
-    "license": "ISC",
     "dependencies": {
         "cors": "^2.8.5",
         "dotenv": "^16.0.0",
@@ -17,6 +15,7 @@
     },
     "devDependencies": {
         "jest": "^27.5.1",
+        "mongodb-memory-server": "^8.4.0",
         "supertest": "^6.2.2"
     }
 }
