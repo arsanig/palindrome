@@ -21,7 +21,7 @@ This project is a Full Stack MERN application performing CRUD operations on mess
 | ------------ | ---------------------------- |
 | Frontend     | React                        |
 | Backend      | ExpressJS, Mongoose, MongoDB |
-| Testing      | Jest                         |
+| Testing      | Jest, Supertest              |
 | Deployment   | AWS, Docker                  |
 
 ### API Documentation
