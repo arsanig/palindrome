@@ -26,11 +26,15 @@ const getMessage = async (req, res) => {
 
 const addMessage = async (req, res) => {
     try {
-        const isPalindrome = await Utils.checkPalindrome(req.body.message)
         const message = new Message({
-            message: req.body.message,
-            palindrome: isPalindrome,
+            message: '',
+            palindrome: true,
         })
+        if (req.body.message !== '') {
+            message.message = req.body.message
+            const isPalindrome = await Utils.checkPalindrome(req.body.message)
+            message.palindrome = isPalindrome
+        }
         const savedMessage = await message.save()
         res.status(201).json(savedMessage)
     } catch (err) {
@@ -44,10 +48,23 @@ const updateMessage = async (req, res) => {
         return res.status(404).send('Not a valid ID')
 
     try {
-        const isPalindrome = await Utils.checkPalindrome(req.body.message)
+        const message = new Message({
+            message: '',
+            palindrome: true,
+        })
+        if (req.body.message !== '') {
+            message.message = req.body.message
+            const isPalindrome = await Utils.checkPalindrome(req.body.message)
+            message.palindrome = isPalindrome
+        }
         const updatedMessage = await Message.updateOne(
             { _id: _id },
-            { $set: { message: req.body.message, palindrome: isPalindrome } }
+            {
+                $set: {
+                    message: message.message,
+                    palindrome: message.palindrome,
+                },
+            }
         )
         res.json(updatedMessage)
     } catch (err) {

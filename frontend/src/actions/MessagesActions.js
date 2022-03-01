@@ -26,17 +26,15 @@ const addMessage = async (dispatch, messageObj) => {
 
 const updateMessage = async (dispatch, messageObj) => {
     try {
-        const { data } = await api.updateMessage(messageObj._id, {
-            message: messageObj.message,
-        })
+        await api.updateMessage(messageObj._id, messageObj)
+        console.log(messageObj.message)
         dispatch({
             type: 'UPDATE',
             payload: {
-                _id: data._id,
-                message: data.message,
+                _id: messageObj._id,
+                message: messageObj.message,
             },
         })
-        console.log(messageObj.message)
     } catch (err) {
         console.log(err)
     }

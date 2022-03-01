@@ -1,19 +1,15 @@
 const checkPalindrome = (message) => {
-    if (/\p{Emoji}/u.test(message)) {
-        throw new Error(
-            "Message can't include emojis if it's to be considered palindromic"
-        )
-    } else {
-        return (
-            message.replace(/[^a-zA-Z0-9_]/g, '').toLowerCase() ===
-            message
-                .replace(/[^a-zA-Z0-9_]/g, '')
-                .toLowerCase()
-                .split('')
-                .reverse()
-                .join('')
-        )
+    if (!message) return false
+
+    const cleanMessage = message.replace(/\W/g, '').toLowerCase()
+    let left = 0
+    let right = cleanMessage.length - 1
+    while (left < right) {
+        if (cleanMessage[left] !== cleanMessage[right]) return false
+        left++
+        right--
     }
+    return true
 }
 
 module.exports = { checkPalindrome }

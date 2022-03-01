@@ -15,19 +15,15 @@ export default function Form() {
     }
 
     const handleSubmit = (e) => {
+        const newMessage = {
+            _id: '',
+            message: textarea,
+            palindrome: '',
+        }
         if (edit) {
-            const newMessage = {
-                _id: selectedForEdit._id,
-                message: textarea,
-            }
-            console.log(newMessage)
+            newMessage._id = selectedForEdit._id
             updateMessage(messagesDispatch, newMessage)
         } else {
-            const newMessage = {
-                _id: '',
-                message: textarea,
-                palindrome: '',
-            }
             addMessage(messagesDispatch, newMessage)
         }
         clear(messagesDispatch)
@@ -35,14 +31,17 @@ export default function Form() {
 
     return (
         <form id="form" onSubmit={(e) => handleSubmit(e)}>
-            <label id="form-label">Enter a message</label>
+            {edit ? (
+                <label id="form-title-edit">Editing a message</label>
+            ) : (
+                <label id="form-title">Enter a message</label>
+            )}
             <textarea
                 id="form-text"
                 name="textarea"
                 maxLength="80"
                 value={textarea}
                 onChange={(e) => handleChange(e)}
-                required
             />
             <input id="form-input" type="submit" value="Check if palindrome" />
         </form>

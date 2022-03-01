@@ -14,8 +14,12 @@ body,
     @apply flex flex-col items-center;
 }
 
-#form-label {
+#form-title {
     @apply mt-7 text-white text-3xl;
+}
+
+#form-title-edit {
+    @apply mt-7 text-amber-500 text-3xl;
 }
 
 #form-text {

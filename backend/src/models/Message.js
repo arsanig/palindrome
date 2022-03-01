@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+mongoose.Schema.Types.String.checkRequired((v) => typeof v === 'string')
 
 const MessageSchema = mongoose.Schema({
     message: {
