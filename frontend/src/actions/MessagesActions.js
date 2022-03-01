@@ -27,7 +27,6 @@ const addMessage = async (dispatch, messageObj) => {
 const updateMessage = async (dispatch, messageObj) => {
     try {
         await api.updateMessage(messageObj._id, messageObj)
-        console.log(messageObj.message)
         dispatch({
             type: 'UPDATE',
             payload: {

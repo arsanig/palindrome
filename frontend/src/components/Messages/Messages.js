@@ -10,6 +10,7 @@ export default function Messages() {
     useEffect(() => {
         getMessages(messagesDispatch)
     }, [messagesDispatch])
+
     return (
         <>
             <table id="table">

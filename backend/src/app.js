@@ -2,10 +2,9 @@ const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const cors = require('cors')
-// TEMPORARILY PUTTING ABSOLUTE PATH TO THE dotenv
-// So I CAN RUN IT FROM ../backend
-require('dotenv').config({ path: '~/dev/palindrome/backend/.env' })
-const port = process.env.PORT || 5000
+
+require('dotenv').config()
+const port = process.env.PORT
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -28,5 +27,5 @@ mongoose
     .catch((err) => console.log(err.message))
 
 app.get('/', (req, res) => {
-    res.send('API is located under /api')
+    res.send('API is located under /api/messages')
 })

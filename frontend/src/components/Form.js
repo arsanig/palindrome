@@ -15,6 +15,7 @@ export default function Form() {
     }
 
     const handleSubmit = (e) => {
+        e.preventDefault()
         const newMessage = {
             _id: '',
             message: textarea,
@@ -27,23 +28,25 @@ export default function Form() {
             addMessage(messagesDispatch, newMessage)
         }
         clear(messagesDispatch)
+        window.location.reload()
     }
 
     return (
         <form id="form" onSubmit={(e) => handleSubmit(e)}>
             {edit ? (
-                <label id="form-title-edit">Editing a message</label>
+                <label id="form-title-edit">📝 Editing a message</label>
             ) : (
                 <label id="form-title">Enter a message</label>
             )}
             <textarea
                 id="form-text"
                 name="textarea"
-                maxLength="80"
+                maxLength="200"
                 value={textarea}
                 onChange={(e) => handleChange(e)}
             />
-            <input id="form-input" type="submit" value="Check if palindrome" />
+            <label id="form-warning">Character limit is 200</label>
+            <input id="form-button" type="submit" value="Check if palindrome" />
         </form>
     )
 }
