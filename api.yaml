@@ -1,0 +1,121 @@
+swagger: "2.0"
+info:
+  description: "This is a message API that allows you to send and receive messages that could be palindromes."
+  version: "1.0.0"
+  title: "Palindromy"
+host: "localhost:3000"
+basePath: "/api"
+schemes:
+  - "http"
+paths:
+  /messages:
+    get:
+      tags:
+        - "messages"
+      summary: "Retrieves messages"
+      description: "Returns an array with message objects"
+      operationId: "getMessages"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Message"
+        "404":
+          description: "Not found"
+    post:
+      tags:
+        - "messages"
+      summary: "Add a new message"
+      operationId: "addMessage"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Message object that needs to be added"
+          required: true
+          schema:
+            $ref: "#/definitions/Message"
+      responses:
+        "404":
+          description: "Invalid Id, No object provided"
+  /messages/{_id}:
+    get:
+      tags:
+        - "messages"
+      summary: "Find message by _id"
+      description: "Returns a message"
+      operationId: "getMessage"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "_id"
+          in: "path"
+          description: "ID of the message to return"
+          required: true
+          type: "string"
+          format: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Message"
+        "404":
+          description: "Invalid ID supplied, Not found"
+    put:
+      tags:
+        - "messages"
+      summary: "Updates a message"
+      description: "Updates a message with the supplied id. Will update the palindrome field"
+      operationId: "updateMessage"
+      produces:
+        - "application/html"
+      parameters:
+        - name: "_id"
+          in: "path"
+          description: "Message that needs to be updated"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "Success"
+        "404":
+          description: "Invalid Id, No object provided"
+    delete:
+      tags:
+        - "messages"
+      summary: "Deletes a message by _id"
+      description: "Deletes a message with the supplied id and returns it"
+      operationId: "deleteMessage"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "_id"
+          in: "path"
+          description: "Message id to delete"
+          required: true
+          type: "string"
+          format: "string"
+      responses:
+        "200":
+          description: "Success"
+        "404":
+          description: "Invalid ID supplied, Pet not found"
+definitions:
+  Message:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+        format: "string"
+      message:
+        type: "string"
+      palindrome:
+        type: "boolean"
+        default: true

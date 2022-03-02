@@ -4,17 +4,21 @@ This project is a Full Stack MERN application performing CRUD operations on mess
 
 ## Assumptions
 
--   Palindrome definition followed:
+Palindrome definition followed:
 
 > A palindrome is a word, number, phrase, or other sequence of alphanumeric characters which reads the same backward as forward
 
 -   An empty message is a valid palindrome
 
 ## Build Application
-
+1. Clone the repo
+2. `cd palindrome/`
+3. `npm i`
+4. `npm start`
+5. Visit [localhost:3000](http://localhost:3000) 🚀
 ### Running tests
 
-Outside the frontend and backend folders just run `npm test`
+In `palindrome/` run `npm test`
 
 ## Technologies used
 
