@@ -4,11 +4,11 @@ This project is a Full Stack MERN application performing CRUD operations on mess
 
 ## Assumptions
 
-Palindrome definition followed:
+1. Palindrome definition followed:
 
 > A palindrome is a word, number, phrase, or other sequence of alphanumeric characters which reads the same backward as forward
 
--   An empty message is a valid palindrome
+2. An empty message is a valid palindrome
 
 ## Build Application
 1. Clone the repo
@@ -29,8 +29,7 @@ In `palindrome/` run `npm test`
 | Testing      | Jest, Supertest, MongoDB Memory Server |
 
 ## API Documentation
-
 Please see the [`api.yaml`]() file and paste all of its contents in [Swagger Editor](https://editor.swagger.io/). Additionally you can use the browser extension to view it directly from the repo.
 
 ## Architecture
-![Architecture](https://user-images.githubusercontent.com/14844029/156365244-15822d81-b7f2-46ea-a585-e9df7c9cc81c.png)
+![Architecture](https://user-images.githubusercontent.com/14844029/156365354-00e70d0d-4170-4b4a-af92-1be89413aba9.png)
