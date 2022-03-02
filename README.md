@@ -29,7 +29,7 @@ In `palindrome/` run `npm test`
 | Testing      | Jest, Supertest, MongoDB Memory Server |
 
 ## API Documentation
-Please see the [`api.yaml`]() file and paste all of its contents in [Swagger Editor](https://editor.swagger.io/). Additionally you can use the browser extension to view it directly from the repo.
+Please see the [`api.yaml`](https://github.com/arsanig/palindrome/blob/main/api.yaml) file and paste all of its contents in [Swagger Editor](https://editor.swagger.io/). Additionally you can use the browser extension to view it directly from the repo.
 
 ## Architecture
 ![Architecture](https://user-images.githubusercontent.com/14844029/156365354-00e70d0d-4170-4b4a-af92-1be89413aba9.png)
