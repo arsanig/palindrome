@@ -33,3 +33,4 @@ In `palindrome/` run `npm test`
 Please see the [`api.yaml`]() file and paste all of its contents in [Swagger Editor](https://editor.swagger.io/). Additionally you can use the browser extension to view it directly from the repo.
 
 ## Architecture
+![Architecture](https://user-images.githubusercontent.com/14844029/156365244-15822d81-b7f2-46ea-a585-e9df7c9cc81c.png)
