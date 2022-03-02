@@ -4,7 +4,7 @@ const alphaNumRegex = /[A-Za-z0-9]/g
 const nonAlphaNumRegex = /[^A-Za-z0-9]/g
 
 const isPalindrome = (message) => {
-    if (message.length === 0) return true
+    if (message === '') return true
 
     if (containsEmoji(message) && !alphaNumRegex.test(message)) return false
 

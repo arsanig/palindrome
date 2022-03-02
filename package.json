@@ -1,13 +1,14 @@
 {
     "devDependencies": {
         "concurrently": "^7.0.0",
+        "jest": "^27.5.1",
         "nodemon": "^2.0.15",
         "prettier": "2.5.1"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest --runInBand --detectOpenHandles",
         "pretty": "npx prettier --write .",
-        "dev": "concurrently \"cd ./frontend && npm start\" \"node ./backend/src/app.js\"",
+        "start": "concurrently \"cd ./frontend && npm start\" \"node ./backend/src/app.js\"",
         "frontend": "cd ./frontend && npm start",
         "backend": "./node_modules/nodemon/bin/nodemon.js ./backend/src/app.js"
     }

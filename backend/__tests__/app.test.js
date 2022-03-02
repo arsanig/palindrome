@@ -6,14 +6,21 @@ const { connect, disconnect } = require('./mocks/db')
 const Message = require('../src/db/models/Message')
 const { isValidId } = require('../src/utils/validator')
 
-const newMessage = async () => {
+const newMessage = async (isPalindromic) => {
     const id = new mongoose.Types.ObjectId()
-    const message = new Message({
-        _id: id,
-        message: '',
-        palindrome: true,
-    })
-    const savedMessage = await message.save()
+    let newMessage
+    isPalindromic ?
+        newMessage = new Message({
+            _id: id,
+            message: '',
+            palindrome: true,
+        }) :
+        newMessage = new Message({
+            _id: id,
+            message: 'ab',
+            palindrome: false,
+        })
+    const savedMessage = await newMessage.save()
     return savedMessage
 }
 
@@ -26,14 +33,15 @@ describe('Integration tests to test Messages API', () => {
         disconnect()
     })
 
-    it('GET /messages; returns empty array or array of message objects', async () => {
-        return request
-            .get('/api/messages')
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .then((res) => {
-                expect(res.body).toEqual(
-                    expect.arrayContaining([]) ||
+    describe('GET', () => {
+        it('/messages; returns empty array or array of message objects', () => {
+            return request
+                .get('/api/messages')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .then((res) => {
+                    expect(res.body).toEqual(
+                        expect.arrayContaining([]) ||
                         expect.arrayContaining([
                             expect.objectContaining({
                                 _id: expect.any(mongoose.Types.ObjectId),
@@ -41,119 +49,145 @@ describe('Integration tests to test Messages API', () => {
                                 palindrome: expect.any(Boolean),
                             }),
                         ])
-                )
-            })
-    })
-
-    it('GET /messages/id; return a message by id', async () => {
-        const message = await newMessage()
-        return request
-            .get(`/api/messages/${message._id}`)
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .then((res) => {
-                expect(res.body).toMatchObject({
-                    _id: message._id,
-                    message: message.message,
-                    palindrome: message.palindrome,
+                    )
                 })
-            })
-    })
+        })
 
-    it('GET /messages/id; return a 404 for not a valid id', async () => {
-        return request
-            .get(`/api/messages/${null}`)
-            .expect('Content-Type', /html/)
-            .expect(404)
-    })
-
-    it('POST /messages; adds a new message without id or palindrome field', async () => {
-        const message = {
-            message: '',
-        }
-        return request
-            .post(`/api/messages`)
-            .send(message)
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .then((res) => {
-                expect(res.body).toMatchObject({
-                    message: expect.any(String),
-                    palindrome: expect.any(Boolean),
+        it('/messages/id; return a message by id', async () => {
+            const isPalindromic = true
+            const message = await newMessage(isPalindromic)
+            return request
+                .get(`/api/messages/${message._id}`)
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .then((res) => {
+                    expect(res.body).toMatchObject({
+                        _id: message._id,
+                        message: message.message,
+                        palindrome: message.palindrome,
+                    })
                 })
-                expect(isValidId(res.body._id)).toBeTruthy()
-            })
+        })
+
+        it('/messages/id; return a 404 for not a valid id', () => {
+            return request
+                .get(`/api/messages/${null}`)
+                .expect('Content-Type', /html/)
+                .expect(404)
+        })
     })
 
-    // it('POST /messages; tries to add a new message with no body in the request', async () => {
-    //     return request
-    //         .post(`/api/messages`)
-    //         .send({})
-    //         .expect('Content-Type', /json/)
-    //         .expect(200)
-    //         .then((res) => {
-    //             expect(res.body).toMatchObject({
-    //                 message: expect.any(String),
-    //                 palindrome: expect.any(Boolean),
-    //             })
-    //             expect(isValidId(res.body._id)).toBeTruthy()
-    //         })
-    // })
+    describe('POST', () => {
+        it('/messages; adds a new message without id or palindrome field', () => {
+            const message = {
+                message: '',
+            }
+            return request
+                .post(`/api/messages`)
+                .send(message)
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .then((res) => {
+                    expect(res.body).toMatchObject({
+                        message: expect.any(String),
+                        palindrome: expect.any(Boolean),
+                    })
+                    expect(isValidId(res.body._id)).toBeTruthy()
+                })
+        })
 
-    it('POST /messages; tries to add a new message to a non valid id', async () => {
-        return request
-            .post(`/api/messages///`)
-            .send()
-            .expect('Content-Type', /text/)
-            .expect(404)
+        it('/messages; receive error when trying to add message with no body', () => {
+            return request
+                .post(`/api/messages`)
+                .send({})
+                .expect('Content-Type', /html/)
+                .expect(404)
+                .then()
+        })
+
+        it('/messages; receive error when trying to add message with an invalid id', () => {
+            return request
+                .post(`/api/messages///`)
+                .send()
+                .expect('Content-Type', /html/)
+                .expect(404)
+        })
     })
 
-    // it('PATCH /messages/id; updates a message by id', () => {
-    //     const id = new mongoose.Types.ObjectId()
-    //     const message = new Message({
-    //         _id: id,
-    //         message: '',
-    //         palindrome: true,
-    //     })
-    //     const savedMessage = await message.save()
+    describe('PATCH', () => {
+        it('/messages/id; updates a message by id from palindrome to non-palindrome', async () => {
+            const isPalindromic = true
+            const message = await newMessage(isPalindromic)
+            const newPalindromeMessage = {
+                message: 'not a palindrome'
+            }
+            request
+                .patch(`/api/messages/${message._id}`)
+                .send(newPalindromeMessage)
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .then(() => {
+                    request.get(`/api/messages/${message._id}`)
+                        .expect('Content-Type', /json/)
+                        .expect(200)
+                        .then((res) => {
+                            expect(res.body.palindrome).toBeFalsy()
+                        })
+                })
+        })
 
-    //     return request.patch(`/api/messages/${id}`).expect(409)
-    // })
 
-    // it('PATCH /messages/id; updates a message by id from palindromic to not', () => {
-    //     return request.patch(`/api/messages/${id}`).expect(409)
-    // })
+        it('/messages/id; updates a message by id from non-palindrome to palindrome', async () => {
+            const isPalindromic = false
+            const message = await newMessage(isPalindromic)
+            const newPalindromeMessage = {
+                message: '999'
+            }
+            request
+                .patch(`/api/messages/${message._id}`)
+                .send(newPalindromeMessage)
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .then(() => {
+                    request.get(`/api/messages/${message._id}`)
+                        .expect('Content-Type', /json/)
+                        .expect(200)
+                        .then((res) => {
+                            expect(res.body.palindrome).toBeTruthy()
+                        })
+                })
+        })
 
-    // it('PATCH /messages/id; updates a message by id from non-palindromic to palindromic', () => {
-    //     return request.patch(`/api/messages/${id}`).expect(409)
-    // })
+        it('/messages/id; receive error when trying to add message with an invalid id', () => {
+            return request
+                .post('/api/messages/blah')
+                .send()
+                .expect('Content-Type', /html/)
+                .expect(404)
+        })
+    })
 
-    // it('DELETE /messages/id; deletes a message by id', () => {
-    //     const id = new mongoose.Types.ObjectId()
-    //     const message = new Message({
-    //         _id: id,
-    //         message: '',
-    //         palindrome: false,
-    //     })
-    //     const savedMessage = await message.save()
+    describe('DELETE', () => {
+        it('/messages/id; deletes a message by id', async () => {
+            const message = await newMessage()
+            return request
+                .delete(`/api/messages/${message._id}`)
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .then((res) => {
+                    expect(res.body).toMatchObject({
+                        _id: message._id,
+                        message: message.message,
+                        palindrome: message.palindrome,
+                    })
+                })
+        })
 
-    //     return request
-    //         .get(`/api/messages/${id}`)
-    //         .expect('Content-Type', /json/)
-    //         .expect(200)
-    //         .then((res) => {
-    //             expect(res.body).toMatchObject({
-    //                 _id: savedMessage._id,
-    //                 message: savedMessage.message,
-    //                 palindrome: savedMessage.palindrome,
-    //             })
-    //         })
-    // })
-
-    it('DELETE /messages/id; tries to delete message with bad id', () => {
-        return request
-            .delete('/api/messages/badid')
-            .expect('Content-Type', /text/)
-            .expect(404)
+        it('/messages/id; tries to delete message with bad id', () => {
+            return request
+                .delete('/api/messages/badid')
+                .expect('Content-Type', /html/)
+                .expect(404)
+        })
     })
 })

@@ -4,7 +4,7 @@ const emojiRegex = new RegExp(
 )
 
 const containsEmoji = (message) => {
-    if (message.length === 0) return false
+    if (message === '') return false
     return emojiRegex.test(message)
 }
 

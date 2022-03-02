@@ -40,6 +40,8 @@ const getMessage = async (req, res) => {
 }
 
 const addMessage = async (req, res) => {
+    if (req.body.message === undefined)
+        return res.status(404).send('No object provided')
     try {
         const message = await constructMessage(req)
         const savedMessage = await message.save()
@@ -50,6 +52,8 @@ const addMessage = async (req, res) => {
 }
 
 const updateMessage = async (req, res) => {
+    if (req.body.message === undefined)
+        return res.status(404).send('No object provided')
     try {
         const { id: _id } = req.params
         if (await !isValidId(_id)) return res.status(404).send('Not a valid ID')
