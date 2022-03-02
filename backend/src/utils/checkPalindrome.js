@@ -10,8 +10,8 @@ const checkPalindrome = (message) => {
         return false
 
     const cleanMessage = message.replace(nonAlphaNumRegex, '').toLowerCase()
-    const lowerCaseMessage = cleanMessage.split('').reverse().join('')
-    return cleanMessage === lowerCaseMessage
+    const reverseMessage = cleanMessage.split('').reverse().join('')
+    return cleanMessage === reverseMessage
 }
 
 module.exports = { checkPalindrome }
