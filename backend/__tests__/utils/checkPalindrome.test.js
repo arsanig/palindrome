@@ -1,4 +1,4 @@
-const Utils = require('../../src/utils')
+const Utils = require('../../src/utils/checkPalindrome')
 const checkPalindrome = Utils.checkPalindrome
 
 describe('Testing checkPalindrome function', () => {

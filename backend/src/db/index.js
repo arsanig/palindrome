@@ -1,12 +1,14 @@
 const mongoose = require('mongoose')
 
 const connect = () => {
+    const mongooseOpt = {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    }
+    
     return new Promise((resolve, reject) => {
         mongoose
-            .connect(process.env.MONGO_URL, {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-            })
+            .connect(process.env.MONGO_URL, mongooseOpt)
             .then((res, err) => {
                 if (err) return reject(err)
                 console.log('Connected to MongoDB')
