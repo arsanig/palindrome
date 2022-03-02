@@ -106,7 +106,7 @@ paths:
         "200":
           description: "Success"
         "404":
-          description: "Invalid ID supplied, Pet not found"
+          description: "Invalid id supplied, Id not found"
 definitions:
   Message:
     type: "object"
