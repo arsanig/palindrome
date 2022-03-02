@@ -12,7 +12,6 @@ This project is a Full Stack MERN application performing CRUD operations on mess
 
 ## Build Application
 
-
 ### Running tests
 
 Outside the frontend and backend folders just run `npm test`

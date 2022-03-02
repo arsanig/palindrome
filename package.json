@@ -8,7 +8,8 @@
     "scripts": {
         "test": "jest --runInBand --detectOpenHandles",
         "pretty": "npx prettier --write .",
-        "start": "concurrently \"cd ./frontend && npm start\" \"node ./backend/src/app.js\"",
+        "start": "concurrently \"node ./backend/src/app.js\" \"cd ./frontend && npm start\"",
+        "postinstall": "(cd ./frontend && npm i); (cd ../backend && npm i);",
         "frontend": "cd ./frontend && npm start",
         "backend": "./node_modules/nodemon/bin/nodemon.js ./backend/src/app.js"
     }

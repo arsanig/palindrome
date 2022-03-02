@@ -9,17 +9,17 @@ const { isValidId } = require('../src/utils/validator')
 const newMessage = async (isPalindromic) => {
     const id = new mongoose.Types.ObjectId()
     let newMessage
-    isPalindromic ?
-        newMessage = new Message({
-            _id: id,
-            message: '',
-            palindrome: true,
-        }) :
-        newMessage = new Message({
-            _id: id,
-            message: 'ab',
-            palindrome: false,
-        })
+    isPalindromic
+        ? (newMessage = new Message({
+              _id: id,
+              message: '',
+              palindrome: true,
+          }))
+        : (newMessage = new Message({
+              _id: id,
+              message: 'ab',
+              palindrome: false,
+          }))
     const savedMessage = await newMessage.save()
     return savedMessage
 }
@@ -42,13 +42,13 @@ describe('Integration tests to test Messages API', () => {
                 .then((res) => {
                     expect(res.body).toEqual(
                         expect.arrayContaining([]) ||
-                        expect.arrayContaining([
-                            expect.objectContaining({
-                                _id: expect.any(mongoose.Types.ObjectId),
-                                message: expect.any(String),
-                                palindrome: expect.any(Boolean),
-                            }),
-                        ])
+                            expect.arrayContaining([
+                                expect.objectContaining({
+                                    _id: expect.any(mongoose.Types.ObjectId),
+                                    message: expect.any(String),
+                                    palindrome: expect.any(Boolean),
+                                }),
+                            ])
                     )
                 })
         })
@@ -119,7 +119,7 @@ describe('Integration tests to test Messages API', () => {
             const isPalindromic = true
             const message = await newMessage(isPalindromic)
             const newPalindromeMessage = {
-                message: 'not a palindrome'
+                message: 'not a palindrome',
             }
             request
                 .patch(`/api/messages/${message._id}`)
@@ -127,7 +127,8 @@ describe('Integration tests to test Messages API', () => {
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .then(() => {
-                    request.get(`/api/messages/${message._id}`)
+                    request
+                        .get(`/api/messages/${message._id}`)
                         .expect('Content-Type', /json/)
                         .expect(200)
                         .then((res) => {
@@ -136,12 +137,11 @@ describe('Integration tests to test Messages API', () => {
                 })
         })
 
-
         it('/messages/id; updates a message by id from non-palindrome to palindrome', async () => {
             const isPalindromic = false
             const message = await newMessage(isPalindromic)
             const newPalindromeMessage = {
-                message: '999'
+                message: '999',
             }
             request
                 .patch(`/api/messages/${message._id}`)
@@ -149,7 +149,8 @@ describe('Integration tests to test Messages API', () => {
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .then(() => {
-                    request.get(`/api/messages/${message._id}`)
+                    request
+                        .get(`/api/messages/${message._id}`)
                         .expect('Content-Type', /json/)
                         .expect(200)
                         .then((res) => {
