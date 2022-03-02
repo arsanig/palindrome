@@ -9,8 +9,6 @@
         "test": "jest --runInBand --detectOpenHandles",
         "pretty": "npx prettier --write .",
         "start": "concurrently \"node ./backend/src/server.js\" \"cd ./frontend && npm start\"",
-        "postinstall": "(cd ./frontend && npm i); (cd ./backend && npm i);",
-        "frontend": "cd ./frontend && npm start",
-        "backend": "./node_modules/nodemon/bin/nodemon.js ./backend/src/app.js"
+        "postinstall": "(cd ./frontend && npm i); (cd ./backend && npm i);"
     }
 }

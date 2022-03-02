@@ -1,5 +1,5 @@
 /*
-    TODO: Revisit to trim the fat here :(
+    TODO: Revisit to make cleaner :(
  */
 
 const app = require('../src/app')

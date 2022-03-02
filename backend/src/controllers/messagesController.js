@@ -1,6 +1,7 @@
 /*
-    TODO: Revisit to trim the fat here :(
+    TODO: Revisit to make cleaner :(
  */
+ 
 
 const mongoose = require('mongoose')
 const Message = require('../db/models/Message')

@@ -1,6 +1,4 @@
-module.exports = () => {
-    return {
-        verbose: true,
-        testMatch: ['**.test.js'],
-    }
+module.exports = {
+    verbose: true,
+    testMatch: ['**.test.js']
 }
